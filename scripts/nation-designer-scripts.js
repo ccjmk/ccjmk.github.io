@@ -46,7 +46,7 @@ function getIdeasFromURL(){
 		if(ideaId == false || ideaLv == false)
 			randomizeIdea(i);
 		else
-			
+			false;
 	};
 
 }
