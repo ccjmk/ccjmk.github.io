@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>EU4 Custom Nation Web Designer v1.1</title>
+		<title>EU4 Custom Nation Web Designer v1.2</title>
 		<meta name="author" content="ccjmk">
 		<meta name="description" content="Web Designer for testing Custom Nation settings on Paradox Interactive's game Europa Universalis IV">
 		<meta name="keywords" content="EU4, Europa, Universalis, EUIV, Custom, Nation, Designer, Web">
 		<meta charset="UTF-8">
 
-		<link rel="stylesheet" href="css/styles.min.css">
-		<link rel="stylesheet" href="scripts/jquery-ui-1.11.4.custom/jquery-ui.min.css">
-		<link rel="stylesheet" href="scripts/jquery-ui-1.11.4.custom/jquery-ui.structure.min.css">
-		<link rel="stylesheet" href="scripts/jquery-ui-1.11.4.custom/jquery-ui.theme.min.css">
-		<link rel="stylesheet" href="scripts/toastr.min.css">
+<!-- 		<link rel="stylesheet" href="styles/styles.min.css"> -->
+		<link rel="stylesheet" href="styles/styles.css">
+		<link rel="stylesheet" href="styles/jquery-ui.min.css">
+		<link rel="stylesheet" href="styles/jquery-ui.structure.min.css">
+		<link rel="stylesheet" href="styles/jquery-ui.theme.min.css">
+		<link rel="stylesheet" href="styles/toastr.min.css">
 
 		<script type="text/javascript" src="scripts/jquery-2.2.1.min.js"></script>
-		<script type="text/javascript" src="scripts/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="scripts/toastr.min.js"></script>
-		<script type="text/javascript" src="scripts/idea-definitions.min.js"></script>
+		<!-- <script type="text/javascript" src="scripts/idea-definitions.min.js"></script> -->
+		<script type="text/javascript" src="scripts/idea-definitions.js"></script>
 <!-- 		<script type="text/javascript" src="scripts/nation-designer-scripts.min.js"></script> -->
 		<script type="text/javascript" src="scripts/nation-designer-scripts.js"></script>
 
@@ -24,7 +26,7 @@
 	</head>
 	<body>
 		<div class="top-title">
-			<h1>EU4 Custom Nation Web Designer v1.1<h1>
+			<h1>EU4 Custom Nation Web Designer v1.2<h1>
 			<hr>
 		</div>
 
@@ -48,17 +50,17 @@
 				   	<option value"50">50 (Very Hard)</option>
 	  			</select>
 
-	  			<input type="text" name="points-input" class="clear-input" placeholder="Custom Starting Points" id="starting-points-input">
+	  			<input type="text" name="points-input" class="points-input clear-input" placeholder="Starting" id="starting-points-input">
 	  		</div>
 
 	  		<div class="container" id="reserved-points-container" title="Use this space to reserve points for terrain, monarch points and/or fancy technology groups and government types" >
   				<label class="points-label">Reserved Points:</label>
-  				<input class="reserved-points-input clear-input" type="text" name="points-input" placeholder="Reserved Points" id="reserved-points-input">
+  				<input class="points-input clear-input" type="text" name="points-input" placeholder="Reserved" id="reserved-points-input">
 	  		</div>
 
 	  		<div class="container" id="available-points-container">
   				<label class="points-label">Available Points:</label>
-  				<input readonly id="available-points-value" class="clear-input" value="0"></input>
+  				<input readonly id="available-points-value" class="points-input clear-input" value="0"></input>
 	  		</div>
 			<hr>
 
@@ -71,12 +73,10 @@
 
 					<div class="idea-row">
 						<img class="selected-idea-type-icon" id="img-placeholder-1"src="img/point-placeholder.png" height="28" width="28">
-						<select id="idea-1-selector" class="idea-selector" placeholder="Select Tradition 1" tabindex="1">
-						   	<!-- <option value="default">Select Tradition 1</option> -->
-			  			</select>
+						<select id="idea-1-selector" class="idea-selector clear-input" placeholder="Select Tradition 1" tabindex="1"></select>
 
-						<input readonly class="idea-modifier-value clear-input" id="value-modifier-idea-1" placeholder="Idea Modifier" tabindex="-1"></input>
-						<input readonly class="idea-cost-value clear-input" id="value-cost-idea-1" placeholder="Idea Cost" tabindex="-1"></input>
+						<input readonly class="points-input clear-input" id="value-modifier-idea-1" placeholder="Idea Modifier" tabindex="-1"></input>
+						<input readonly class="points-input clear-input" id="value-cost-idea-1" placeholder="Idea Cost" tabindex="-1"></input>
 
 						<div id="radio1" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-1-lv1" name="radio-idea-1"><label for="radio-idea-1-lv1">1</label>
@@ -84,16 +84,16 @@
 							<input type="radio" id="radio-idea-1-lv3" name="radio-idea-1"><label for="radio-idea-1-lv3">3</label>
 							<input type="radio" id="radio-idea-1-lv4" name="radio-idea-1"><label for="radio-idea-1-lv4">4</label>
 						</div>
+
+						<button class="ideaRandomizer" id="randomizer-1">Randomize</button>
 			  		</div>
 
 		  			<div class="idea-row">
 		  				<img class="selected-idea-type-icon" id="img-placeholder-2"src="img/point-placeholder.png" height="28" width="28">
-		  				<select id="idea-2-selector" class="idea-selector" tabindex="2">
-						   	<!-- <option value="default">Select Tradition 2</option> -->
-			  			</select>
+		  				<select id="idea-2-selector" class="idea-selector clear-input" tabindex="2"></select>
 
-			  			<input readonly class="idea-modifier-value clear-input" id="value-modifier-idea-2" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="idea-cost-value clear-input" id="value-cost-idea-2" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-2" placeholder="Idea Modifier" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-2" placeholder="Idea Cost" tabindex="-1"></input>
 
 			  			<div id="radio2" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-2-lv1" name="radio-idea-2"><label for="radio-idea-2-lv1">1</label>
@@ -101,18 +101,18 @@
 							<input type="radio" id="radio-idea-2-lv3" name="radio-idea-2"><label for="radio-idea-2-lv3">3</label>
 							<input type="radio" id="radio-idea-2-lv4" name="radio-idea-2"><label for="radio-idea-2-lv4">4</label>
 						</div>
+
+						<button class="ideaRandomizer" id="randomizer-2">Randomize</button>
 			  		</div>
 
 			  		<div class="idea-labels"><h2>Ideas:</h2></div>
 
 		  			<div class="idea-row">
 		  				<img class="selected-idea-type-icon" id="img-placeholder-3"src="img/point-placeholder.png" height="28" width="28">
-		  				<select id="idea-3-selector" class="idea-selector" tabindex="3">
-						   	<!-- <option value="default">Select Idea 1</option> -->
-			  			</select>
+		  				<select id="idea-3-selector" class="idea-selector clear-input" tabindex="3"></select>
 
-			  			<input readonly class="idea-modifier-value clear-input" id="value-modifier-idea-3" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="idea-cost-value clear-input" id="value-cost-idea-3" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-3" placeholder="Idea Modifier" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-3" placeholder="Idea Cost" tabindex="-1"></input>
 
 			  			<div id="radio3" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-3-lv1" name="radio-idea-3"><label for="radio-idea-3-lv1">1</label>
@@ -120,16 +120,16 @@
 							<input type="radio" id="radio-idea-3-lv3" name="radio-idea-3"><label for="radio-idea-3-lv3">3</label>
 							<input type="radio" id="radio-idea-3-lv4" name="radio-idea-3"><label for="radio-idea-3-lv4">4</label>
 						</div>
+
+						<button class="ideaRandomizer" id="randomizer-3">Randomize</button>
 			  		</div>
 						
 		  			<div class="idea-row">
 		  				<img class="selected-idea-type-icon" id="img-placeholder-4"src="img/point-placeholder.png" height="28" width="28">
-		  				<select id="idea-4-selector" class="idea-selector" tabindex="4">
-						   	<!-- <option value="default">Select Idea 2</option> -->
-			  			</select>
+		  				<select id="idea-4-selector" class="idea-selector clear-input" tabindex="4"></select>
 
-			  			<input readonly class="idea-modifier-value clear-input" id="value-modifier-idea-4" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="idea-cost-value clear-input" id="value-cost-idea-4" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-4" placeholder="Idea Modifier" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-4" placeholder="Idea Cost" tabindex="-1"></input>
 
 			  			<div id="radio4" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-4-lv1" name="radio-idea-4"><label for="radio-idea-4-lv1">1</label>
@@ -137,16 +137,16 @@
 							<input type="radio" id="radio-idea-4-lv3" name="radio-idea-4"><label for="radio-idea-4-lv3">3</label>
 							<input type="radio" id="radio-idea-4-lv4" name="radio-idea-4"><label for="radio-idea-4-lv4">4</label>
 						</div>
+
+						<button class="ideaRandomizer" id="randomizer-4">Randomize</button>
 			  		</div>
 						
 		  			<div class="idea-row">
 		  				<img class="selected-idea-type-icon" id="img-placeholder-5"src="img/point-placeholder.png" height="28" width="28">
-		  				<select id="idea-5-selector" class="idea-selector" tabindex="5">
-						   	<!-- <option value="default">Select Idea 3</option> -->
-			  			</select>
+		  				<select id="idea-5-selector" class="idea-selector clear-input" tabindex="5"></select>
 
-			  			<input readonly class="idea-modifier-value clear-input" id="value-modifier-idea-5" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="idea-cost-value clear-input" id="value-cost-idea-5" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-5" placeholder="Idea Modifier" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-5" placeholder="Idea Cost" tabindex="-1"></input>
 
 			  			<div id="radio5" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-5-lv1" name="radio-idea-5"><label for="radio-idea-5-lv1">1</label>
@@ -154,16 +154,16 @@
 							<input type="radio" id="radio-idea-5-lv3" name="radio-idea-5"><label for="radio-idea-5-lv3">3</label>
 							<input type="radio" id="radio-idea-5-lv4" name="radio-idea-5"><label for="radio-idea-5-lv4">4</label>
 						</div>
+
+						<button class="ideaRandomizer" id="randomizer-5">Randomize</button>
 			  		</div>
 						
 		  			<div class="idea-row">
 		  				<img class="selected-idea-type-icon" id="img-placeholder-6"src="img/point-placeholder.png" height="28" width="28">
-		  				<select id="idea-6-selector" class="idea-selector" tabindex="6">
-						   	<!-- <option value="default">Select Idea 4</option> -->
-			  			</select>
+		  				<select id="idea-6-selector" class="idea-selector clear-input" tabindex="6"></select>
 
-			  			<input readonly class="idea-modifier-value clear-input" id="value-modifier-idea-6" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="idea-cost-value clear-input" id="value-cost-idea-6" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-6" placeholder="Idea Modifier" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-6" placeholder="Idea Cost" tabindex="-1"></input>
 
 			  			<div id="radio6" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-6-lv1" name="radio-idea-6"><label for="radio-idea-6-lv1">1</label>
@@ -171,16 +171,16 @@
 							<input type="radio" id="radio-idea-6-lv3" name="radio-idea-6"><label for="radio-idea-6-lv3">3</label>
 							<input type="radio" id="radio-idea-6-lv4" name="radio-idea-6"><label for="radio-idea-6-lv4">4</label>
 						</div>
+
+						<button class="ideaRandomizer" id="randomizer-6">Randomize</button>
 			  		</div>
 						
 		  			<div class="idea-row">
 		  				<img class="selected-idea-type-icon" id="img-placeholder-7"src="img/point-placeholder.png" height="28" width="28">
-		  				<select id="idea-7-selector" class="idea-selector" tabindex="7">
-						   	<!-- <option value="default">Select Idea 5</option> -->
-			  			</select>
+		  				<select id="idea-7-selector" class="idea-selector clear-input" tabindex="7"></select>
 
-			  			<input readonly class="idea-modifier-value clear-input" id="value-modifier-idea-7" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="idea-cost-value clear-input" id="value-cost-idea-7" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-7" placeholder="Idea Modifier" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-7" placeholder="Idea Cost" tabindex="-1"></input>
 
 			  			<div id="radio7" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-7-lv1" name="radio-idea-7"><label for="radio-idea-7-lv1">1</label>
@@ -188,16 +188,16 @@
 							<input type="radio" id="radio-idea-7-lv3" name="radio-idea-7"><label for="radio-idea-7-lv3">3</label>
 							<input type="radio" id="radio-idea-7-lv4" name="radio-idea-7"><label for="radio-idea-7-lv4">4</label>
 						</div>
+
+						<button class="ideaRandomizer" id="randomizer-7">Randomize</button>
 			  		</div>
 						
 		  			<div class="idea-row">
 		  				<img class="selected-idea-type-icon" id="img-placeholder-8"src="img/point-placeholder.png" height="28" width="28">
-		  				<select id="idea-8-selector" class="idea-selector" tabindex="9">
-						   	<!-- <option value="default">Select Idea 6</option> -->
-			  			</select>
+		  				<select id="idea-8-selector" class="idea-selector clear-input" tabindex="9"></select>
 
-			  			<input readonly class="idea-modifier-value clear-input" id="value-modifier-idea-8" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="idea-cost-value clear-input" id="value-cost-idea-8" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-8" placeholder="Idea Modifier" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-8" placeholder="Idea Cost" tabindex="-1"></input>
 
 			  			<div id="radio8" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-8-lv1" name="radio-idea-8"><label for="radio-idea-8-lv1">1</label>
@@ -205,16 +205,16 @@
 							<input type="radio" id="radio-idea-8-lv3" name="radio-idea-8"><label for="radio-idea-8-lv3">3</label>
 							<input type="radio" id="radio-idea-8-lv4" name="radio-idea-8"><label for="radio-idea-8-lv4">4</label>
 						</div>
+
+		  				<button class="ideaRandomizer" id="randomizer-8">Randomize</button>
 			  		</div>
 						
 		  			<div class="idea-row">
 		  				<img class="selected-idea-type-icon" id="img-placeholder-9"src="img/point-placeholder.png" height="28" width="28">
-		  				<select id="idea-9-selector" class="idea-selector" tabindex="9">
-						   	<!-- <option value="default">Select Idea 7</option> -->
-			  			</select>
+		  				<select id="idea-9-selector" class="idea-selector clear-input" tabindex="9"></select>
 
-			  			<input readonly class="idea-modifier-value clear-input" id="value-modifier-idea-9" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="idea-cost-value clear-input" id="value-cost-idea-9" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-9" placeholder="Idea Modifier" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-9" placeholder="Idea Cost" tabindex="-1"></input>
 
 			  			<div id="radio9" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-9-lv1" name="radio-idea-9"><label for="radio-idea-9-lv1">1</label>
@@ -222,18 +222,18 @@
 							<input type="radio" id="radio-idea-9-lv3" name="radio-idea-9"><label for="radio-idea-9-lv3">3</label>
 							<input type="radio" id="radio-idea-9-lv4" name="radio-idea-9"><label for="radio-idea-9-lv4">4</label>
 						</div>
+
+		  				<button class="ideaRandomizer" id="randomizer-9">Randomize</button>
 			  		</div>
 						
 		  			<div class="idea-labels"><h2>Ambition:</h2></div>
 					
 					<div class="idea-row">
 						<img class="selected-idea-type-icon" id="img-placeholder-10"src="img/point-placeholder.png" height="28" width="28">
-						<select id="idea-10-selector" class="idea-selector" tabindex="10">
-						   	<!-- <option value="default">Select Ambition</option> -->
-			  			</select>
+						<select id="idea-10-selector" class="idea-selector clear-input" tabindex="10"></select>
 
-			  			<input readonly class="idea-modifier-value clear-input" id="value-modifier-idea-10" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="idea-cost-value clear-input" id="value-cost-idea-10" placeholder="Idea Cost" tabindex="-1"</input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-10" placeholder="Idea Modifier" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-10" placeholder="Idea Cost" tabindex="-1"</input>
 
 			  			<div id="radio10" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-10-lv1" name="radio-idea-10"><label for="radio-idea-10-lv1">1</label>
@@ -241,6 +241,8 @@
 							<input type="radio" id="radio-idea-10-lv3" name="radio-idea-10"><label for="radio-idea-10-lv3">3</label>
 							<input type="radio" id="radio-idea-10-lv4" name="radio-idea-10"><label for="radio-idea-10-lv4">4</label>
 						</div>
+
+						<button class="ideaRandomizer" id="randomizer-10">Randomize</button>
 			  		</div>
 						
 				</div>
