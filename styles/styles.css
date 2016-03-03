@@ -1,0 +1,97 @@
+body{
+	background-color: #201913;
+	color: #ffffff;
+	font: 85% "Trebuchet MS", sans-serif;
+	margin: 20px 30px 20px 50px;
+}
+
+a:link {
+    color: #9bcc60;
+}
+a:visited {
+    color: #826313;
+}
+
+.clear-input{
+	background-color: #f9f6da;
+	border-radius: 4px;
+	height: 25px;
+	text-indent: 4px;
+	margin-left: 4px;
+}
+
+.points-input{
+	width: 80px;
+}
+
+.idea-row{
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.container{
+	margin: 5px;
+}
+
+.idea-level-btns{
+	float: left;
+}
+
+.idea-selectors{
+	width: 70%;
+	float: left;
+}
+
+.idea-percentages{
+	float: left;
+	margin-top: 50px;
+}
+
+.clearfix{
+	clear:both;
+}
+
+.points-label{
+	width: 150px;
+	float: left;
+	display: block;
+}
+
+.type-percentage-div{
+	margin: 50px;
+}
+
+.type-percentage-lbl{
+	min-width: 25%;
+}
+
+.selected-idea-type-icon{
+	float: left;
+	margin-left: 5px;
+}
+
+.idea-modifier-value{
+	max-width: 80px;
+}
+.idea-cost-value{
+	max-width: 80px;
+}
+.ideaLvlRadioButtons{
+	display: inline;
+	margin-left: 5px;
+}
+
+.select-group-label{
+	background-color: #d6d4bc;
+	font-size: 125%;
+}
+
+.points-selection{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.ideaRandomizer{
+	/*float: right;*/
+	margin-left: 4px;
+}

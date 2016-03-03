@@ -27,6 +27,20 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
+function updateURLString(){
+	var queryString = "?";
+	for (var i=1 ; i<=10 ; i++) {
+		queryString += "id"+i+"=" + ideas[i-1].id + "&lv"+i+"=" + ideaCurrentLevels[i-1];
+		if(i<10) queryString+= "&";
+	};
+
+	// if (history.pushState) {
+	//     var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryString;
+	//     window.history.pushState({path:newurl},'',newurl);
+	// }
+	return queryString;
+}
+
 function getQueryVariable(variable){
        var query = window.location.search.substring(1);
        var vars = query.split("&");
@@ -38,15 +52,25 @@ function getQueryVariable(variable){
 }
 
 function getIdeasFromURL(){
-		//alert(getQueryVariable("id1"));
-	var ideaId, ideaLv;
+	var ideaId, ideaLv, selectedIdea;
 	for (var i = 0; i < 10; i++) {
-		ideaId = getQueryVariable("id"+i);
-		ideaLv = getQueryVariable("lv"+i);
-		if(ideaId == false || ideaLv == false)
+		if(i==9)
+			initComplete = true;	
+		ideaId = getQueryVariable("id"+(i+1));
+		ideaLv = getQueryVariable("lv"+(i+1));
+		if(ideaId == false || ideaLv == false){
 			randomizeIdea(i);
-		else
-			false;
+		}else{
+			selectedIdea = IdeasArray.filter(function(obj){
+				return obj.id == ideaId;
+			});
+			ideas[i] = selectedIdea[0];
+
+			ideaSelects[i].val(ideas[i].name).change();
+			changeIdeaLevel(i, parseInt(ideaLv));
+			levelButtons[i][ideaLv-1].prop("checked", true);
+			levelButtons[i][ideaLv-1].button("refresh");
+		}
 	};
 
 }
@@ -56,7 +80,7 @@ function randomizeIdea(ideaIndex){
 	do {
 		randomIdea = IdeasArray[Math.floor(Math.random()*IdeasArray.length)];
 
-		/* RE-ROLLEAR SI SAQUE UNA IDEA DEL MISMO GRUPO QUE LA ANTERIOR, UNA VEZ */
+		/* RE-ROLL ONCE IF IDEA IS OF THE SAME GROUP THAN PREVIOUS (to promote varied ideas) */
 
 	} while(ideas.indexOf(randomIdea) != -1);
 	ideas[ideaIndex] = randomIdea;
@@ -173,7 +197,7 @@ function changeIdeaLevel(ideaIndex, ideaLevel){
 	}
 
 	adjustIdeaCosts();
-
+	// updateURLString();
 	updateAvailablePoints();
 }
 
@@ -188,7 +212,6 @@ function adjustIdeaCosts(){
 			case 3:	baseCost = ideas[i].cost3;	break;
 			case 4:	baseCost = ideas[i].cost4;	break;
 		}
-		//var finalCost = Math.floor((baseCost + (ideaLevel * ideaLevel * 0.4)) * 100) / 100;
 		finalCost = (baseCost * costModifierByOrder[i]) + (baseCost * excessMultipler);
 
 		costValues[i].val((Math.round(finalCost*10)/10)+" points");
@@ -197,10 +220,23 @@ function adjustIdeaCosts(){
 
 jQuery(function($){
 //jquery UI settings
-	$( "#accordion" ).accordion({
+	$("#accordion").accordion({
 		collapsible: true
 	});
 	$(".ideaLvlRadioButtons").buttonset();
+
+	$(".ideaRandomizer").button({
+      icons: {
+        primary: "ui-icon-shuffle"
+      },
+      text: false
+    })
+
+//Sort ideas
+	AdmIdeasArray.sort(compare);
+	DipIdeasArray.sort(compare);
+	MilIdeasArray.sort(compare);
+	IdeasArray = AdmIdeasArray.concat(DipIdeasArray).concat(MilIdeasArray);
 
 //initializing arrays for handling components
 	for (var i = 0; i < 10; i++) {
@@ -217,6 +253,11 @@ jQuery(function($){
 	};
 
 //onChange functions
+	$(".ideaRandomizer").click(function(){
+		var id = this.id.split("-");
+		randomizeIdea(id[1]-1);
+    })
+
 	$("#points-selector").change(function(){
 		$("#starting-points-input").val($(this).val().substring(0,3));
 		updateAvailablePoints();
@@ -233,13 +274,17 @@ jQuery(function($){
 
 	$("[id^=idea-]").each(function(index, element) {
 		//Add all ideas to select
+		var previousGroup = null;
 		IdeasArray.forEach(function(idea, indexB, array){
-			if(idea.id == "adm1")
-				ideaSelects[index].append("<optgroup class=\"select-group-label\" label=\"Administrative\">")
-			else if(idea.id == "dip1")
-				ideaSelects[index].append("<optgroup class=\"select-group-label\" label=\"Diplomatic\">")
-			else if(idea.id == "mil1")
-				ideaSelects[index].append("<optgroup class=\"select-group-label\" label=\"Military\">")
+			if(idea.id.substring(0, 3) != previousGroup){
+				if(idea.id.indexOf("adm") != -1)
+					ideaSelects[index].append("<optgroup class=\"select-group-label\" label=\"Administrative\">")
+				else if(idea.id.indexOf("dip") != -1)
+					ideaSelects[index].append("<optgroup class=\"select-group-label\" label=\"Diplomatic\">")
+				else if(idea.id.indexOf("mil") != -1)
+					ideaSelects[index].append("<optgroup class=\"select-group-label\" label=\"Military\">")
+			}
+			previousGroup = idea.id.substring(0, 3);
 			var optionHTMLString = "<option val=\x22"+idea.id+"\x22>"+idea.name+"</option>"
 			ideaSelects[index].append(optionHTMLString);
 		});
@@ -248,7 +293,7 @@ jQuery(function($){
 			var index = ($(this).attr("id").split("-")[1]) - 1;
 			var selectedVal = $(this).find(':selected').attr('val');
 
-			/* REVISAR SI LA IDEA YA ESTA ELEGIDA EN OTRO LADO; SI ESTA, INTERCAMBIARLAS */
+			/* CHECK IF IDEA IS SELECTED SOMEWHERE ELSE, IF SO, SWAP THEM */
 
 			var selectedIdea = IdeasArray.filter(function(obj){
 				return obj.id == selectedVal;
@@ -257,11 +302,9 @@ jQuery(function($){
 
 			for (var j = 0; j < 4; j++) {
 				if(ideas[index]["cost"+(j+1)] != null){
-					// levelButtons[index][j].html(j+1);
 					levelButtons[index][j].button("enable");
 					levelButtons[index][j].css("color", "#000000");
 				}else{
-					// levelButtons[index][j].html("X");
 					levelButtons[index][j].button("disable");
 					levelButtons[index][j].css("color", "#dddddd");
 				}
@@ -279,13 +322,8 @@ jQuery(function($){
 			changeIdeaLevel(index, parseInt(1));
 		});
 	});
-	
 
-	$("#points-selector").change();
-	//randomizeIdeas();
-
-	for (var i = 0; i < 10; i++) {
-		randomizeIdea(i);
-	};
+		$("#points-selector").change();
+	getIdeasFromURL();
 
 });
