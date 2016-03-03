@@ -27,7 +27,7 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
-function getQueryVariable(variable){
+function getURLVariable(variable){
        var query = window.location.search.substring(1);
        var vars = query.split("&");
        for (var i=0;i<vars.length;i++) {
@@ -38,17 +38,25 @@ function getQueryVariable(variable){
 }
 
 function getIdeasFromURL(){
-		//alert(getQueryVariable("id1"));
-	var ideaId, ideaLv;
+		//alert(getURLVariable("id1"));
+	var ideaId, ideaLv, selectedIdea;
 	for (var i = 0; i < 10; i++) {
-		ideaId = getQueryVariable("id"+i);
-		ideaLv = getQueryVariable("lv"+i);
-		if(ideaId == false || ideaLv == false)
+		ideaId = getURLVariable("id"+i);
+		ideaLv = getURLVariable("lv"+i);
+		if(ideaId == false || ideaLv == false){
+			//if no query string is found for an idea, randomize it
 			randomizeIdea(i);
-		else
-			false;
+		}else{
+			selectedIdea = IdeasArray.filter(function(obj){
+				return obj.id == ideaId;
+			});
+			ideas[i] = selectedIdea[0];
+			ideaSelects[i].val(ideas[i].name).change();
+			changeIdeaLevel(i, parseInt(ideaLv));
+			levelButtons[i][ideaLv-1].prop("checked", true);
+			levelButtons[i][ideaLv-1].button("refresh");
+		}
 	};
-
 }
 
 function randomizeIdea(ideaIndex){
@@ -282,10 +290,7 @@ jQuery(function($){
 	
 
 	$("#points-selector").change();
-	//randomizeIdeas();
 
-	for (var i = 0; i < 10; i++) {
-		randomizeIdea(i);
-	};
+	getIdeasFromURL();
 
 });
