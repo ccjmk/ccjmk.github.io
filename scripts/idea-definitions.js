@@ -312,7 +312,7 @@ var AdmIdeasArray = [
 	},
 	{
 		id:"adm31",
-		name:"Imperial Autority",
+		name:"Imperial Authority",
 		description:"tbd",
 		group:"adm",
 		valuePerLevel:null,

@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>EU4 Custom Nation Web Designer v1.3</title>
+		<title>EU4 Custom Nation Web Designer v1.5</title>
 		<meta name="author" content="ccjmk">
 		<meta name="description" content="Web Designer for testing Custom Nation settings on Paradox Interactive's game Europa Universalis IV">
 		<meta name="keywords" content="EU4, Europa, Universalis, EUIV, Custom, Nation, Designer, Web">
 		<meta charset="UTF-8">
 
-<!-- 		<link rel="stylesheet" href="styles/styles.min.css"> -->
-		<link rel="stylesheet" href="styles/styles.css">
-		<link rel="stylesheet" href="styles/jquery-ui.min.css">
-		<link rel="stylesheet" href="styles/jquery-ui.structure.min.css">
-		<link rel="stylesheet" href="styles/jquery-ui.theme.min.css">
-		<link rel="stylesheet" href="styles/toastr.min.css">
+		<link rel="stylesheet" href="styles/libs/jquery-ui.min.css">
+		<link rel="stylesheet" href="styles/libs/jquery-ui.structure.min.css">
+		<link rel="stylesheet" href="styles/libs/jquery-ui.theme.min.css">
+		<link rel="stylesheet" href="styles/libs/toastr.min.css">
+		<link rel="stylesheet" href="styles/styles-min.css">
 
-		<script type="text/javascript" src="scripts/jquery-2.2.1.min.js"></script>
-		<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="scripts/toastr.min.js"></script>
-		<!-- <script type="text/javascript" src="scripts/idea-definitions.min.js"></script> -->
+		<script type="text/javascript" src="scripts/libs/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript" src="scripts/libs/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="scripts/libs/toastr.min.js"></script>
+		<script type="text/javascript" src="scripts/scripts-min.js"></script>
 		<script type="text/javascript" src="scripts/idea-definitions.js"></script>
-<!-- 		<script type="text/javascript" src="scripts/nation-designer-scripts.min.js"></script> -->
-		<script type="text/javascript" src="scripts/nation-designer-scripts.js"></script>
-
 
 	</head>
 	<body>
-		<div class="top-title">
-			<h1>EU4 Custom Nation Web Designer v1.3<h1>
+		<header>
+			<h1>EU4 Custom Nation Web Designer v1.5</h1>
 			<hr>
-		</div>
 
-		<div id="accordion">
-			<h3>Welcome!</h3>
-			<div>Small site intended for planning out National Ideas for custom nations on Paradox Interactive's Europa Universalis IV game. It's hard to plan national ideas out of the blue because costs are not consistent, and are modified by the number of ideas you have on a particular area and the idea level. Initially, I only plan for this to work on-site, ephemerally. Later on, as I find time to work on it, I hope to add a save/load option (hopefully working directly with EU4's custom nation files so you can import directly into the game) and probably a sharing option that doesn't need sending anyone your exported custom nation file and just a link. Hope you enjoy it! - ccjmk</div>
-			<h3>How to Use</h3>
-			<div>By default, 200 points are assigned to use; you can customize the value if you want. Reserved points are for considering those to be used on tech-level, government or provinces. Select from each dropdown menu the idea you want and it will show you the level 1 modifier and cost; use the buttons on the right side to change the idea level. On the far-right side, you can see your current idea level count, for not going over 50% on any type set (as it gives you a heavy penalty on idea costs)</div>
-			<h3>Suggestions & Bugs</h3>
-			<div>If you have a suggestion, or you found out that some idea cost / name is incorrect, please let me know! Send me a <a href="https://www.reddit.com/user/ccjmk/">PM on Reddit</a>, I'll be glad to answer ASAP.</div>
-		</div>
+			<div id="accordion">
+				<h4>Welcome!</h4>
+				<div>Small site intended for planning out National Ideas for custom nations on Paradox Interactive's Europa Universalis IV game. It's hard to plan national ideas out of the blue because costs are not consistent, and are modified by the number of ideas you have on a particular area and the idea level. Initially, I only plan for this to work on-site, ephemerally. Later on, as I find time to work on it, I hope to add a save/load option (hopefully working directly with EU4's custom nation files so you can import directly into the game) and probably a sharing option that doesn't need sending anyone your exported custom nation file and just a link. Hope you enjoy it! - ccjmk</div>
+				<h4>How to Use</h4>
+				<div>By default, 200 points are assigned to use; you can customize the value if you want. Reserved points are for considering those to be used on tech-level, government or provinces. Select from each dropdown menu the idea you want and it will show you the level 1 modifier and cost; use the buttons on the right side to change the idea level. On the far-right side, you can see your current idea level count, for not going over 50% on any type set (as it gives you a heavy penalty on idea costs). When you are done, you can click the "Update URL" button to refresh the URL so you can share your idea set as you planned it!</div>
+				<h4>Suggestions & Bugs</h4>
+				<div>If you have a suggestion, you found out that some idea cost / name is incorrect, or god forbid you found a bug, please let me know! Send me a <a href="https://www.reddit.com/user/ccjmk/">PM on Reddit</a>, I'll be glad to answer ASAP.</div>
+			</div>
+		</header>
 
 		<div class="points-selection">
 			<div class="container" id="starting-points-container">
@@ -60,7 +56,7 @@
 
 	  		<div class="container" id="available-points-container">
   				<label class="points-label">Available Points:</label>
-  				<input readonly id="available-points-value" class="points-input clear-input" value="0"></input>
+  				<input readonly id="available-points-value" class="points-input clear-input" value="0">
 	  		</div>
 			<hr>
 
@@ -72,11 +68,11 @@
 					<div class="idea-labels"><h2>Traditions:</h2></div>
 
 					<div class="idea-row">
-						<img class="selected-idea-type-icon" id="img-placeholder-1"src="img/point-placeholder.png" height="28" width="28">
+						<img class="selected-idea-type-icon" id="img-placeholder-1" src="img/point-placeholder.png" height="28" width="28">
 						<select id="idea-1-selector" class="idea-selector clear-input" placeholder="Select Tradition 1" tabindex="1"></select>
 
-						<input readonly class="points-input clear-input" id="value-modifier-idea-1" placeholder="Idea Modifier" tabindex="-1"></input>
-						<input readonly class="points-input clear-input" id="value-cost-idea-1" placeholder="Idea Cost" tabindex="-1"></input>
+						<input readonly class="points-input clear-input" id="value-modifier-idea-1" placeholder="Idea Modifier" tabindex="-1">
+						<input readonly class="points-input clear-input" id="value-cost-idea-1" placeholder="Idea Cost" tabindex="-1">
 
 						<div id="radio1" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-1-lv1" name="radio-idea-1"><label for="radio-idea-1-lv1">1</label>
@@ -89,11 +85,11 @@
 			  		</div>
 
 		  			<div class="idea-row">
-		  				<img class="selected-idea-type-icon" id="img-placeholder-2"src="img/point-placeholder.png" height="28" width="28">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-2" src="img/point-placeholder.png" height="28" width="28">
 		  				<select id="idea-2-selector" class="idea-selector clear-input" tabindex="2"></select>
 
-			  			<input readonly class="points-input clear-input" id="value-modifier-idea-2" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="points-input clear-input" id="value-cost-idea-2" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-2" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-2" placeholder="Idea Cost" tabindex="-1">
 
 			  			<div id="radio2" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-2-lv1" name="radio-idea-2"><label for="radio-idea-2-lv1">1</label>
@@ -108,11 +104,11 @@
 			  		<div class="idea-labels"><h2>Ideas:</h2></div>
 
 		  			<div class="idea-row">
-		  				<img class="selected-idea-type-icon" id="img-placeholder-3"src="img/point-placeholder.png" height="28" width="28">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-3" src="img/point-placeholder.png" height="28" width="28">
 		  				<select id="idea-3-selector" class="idea-selector clear-input" tabindex="3"></select>
 
-			  			<input readonly class="points-input clear-input" id="value-modifier-idea-3" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="points-input clear-input" id="value-cost-idea-3" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-3" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-3" placeholder="Idea Cost" tabindex="-1">
 
 			  			<div id="radio3" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-3-lv1" name="radio-idea-3"><label for="radio-idea-3-lv1">1</label>
@@ -125,11 +121,11 @@
 			  		</div>
 						
 		  			<div class="idea-row">
-		  				<img class="selected-idea-type-icon" id="img-placeholder-4"src="img/point-placeholder.png" height="28" width="28">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-4" src="img/point-placeholder.png" height="28" width="28">
 		  				<select id="idea-4-selector" class="idea-selector clear-input" tabindex="4"></select>
 
-			  			<input readonly class="points-input clear-input" id="value-modifier-idea-4" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="points-input clear-input" id="value-cost-idea-4" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-4" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-4" placeholder="Idea Cost" tabindex="-1">
 
 			  			<div id="radio4" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-4-lv1" name="radio-idea-4"><label for="radio-idea-4-lv1">1</label>
@@ -142,11 +138,11 @@
 			  		</div>
 						
 		  			<div class="idea-row">
-		  				<img class="selected-idea-type-icon" id="img-placeholder-5"src="img/point-placeholder.png" height="28" width="28">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-5" src="img/point-placeholder.png" height="28" width="28">
 		  				<select id="idea-5-selector" class="idea-selector clear-input" tabindex="5"></select>
 
-			  			<input readonly class="points-input clear-input" id="value-modifier-idea-5" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="points-input clear-input" id="value-cost-idea-5" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-5" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-5" placeholder="Idea Cost" tabindex="-1">
 
 			  			<div id="radio5" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-5-lv1" name="radio-idea-5"><label for="radio-idea-5-lv1">1</label>
@@ -159,11 +155,11 @@
 			  		</div>
 						
 		  			<div class="idea-row">
-		  				<img class="selected-idea-type-icon" id="img-placeholder-6"src="img/point-placeholder.png" height="28" width="28">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-6" src="img/point-placeholder.png" height="28" width="28">
 		  				<select id="idea-6-selector" class="idea-selector clear-input" tabindex="6"></select>
 
-			  			<input readonly class="points-input clear-input" id="value-modifier-idea-6" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="points-input clear-input" id="value-cost-idea-6" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-6" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-6" placeholder="Idea Cost" tabindex="-1">
 
 			  			<div id="radio6" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-6-lv1" name="radio-idea-6"><label for="radio-idea-6-lv1">1</label>
@@ -176,11 +172,11 @@
 			  		</div>
 						
 		  			<div class="idea-row">
-		  				<img class="selected-idea-type-icon" id="img-placeholder-7"src="img/point-placeholder.png" height="28" width="28">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-7" src="img/point-placeholder.png" height="28" width="28">
 		  				<select id="idea-7-selector" class="idea-selector clear-input" tabindex="7"></select>
 
-			  			<input readonly class="points-input clear-input" id="value-modifier-idea-7" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="points-input clear-input" id="value-cost-idea-7" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-7" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-7" placeholder="Idea Cost" tabindex="-1">
 
 			  			<div id="radio7" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-7-lv1" name="radio-idea-7"><label for="radio-idea-7-lv1">1</label>
@@ -193,11 +189,11 @@
 			  		</div>
 						
 		  			<div class="idea-row">
-		  				<img class="selected-idea-type-icon" id="img-placeholder-8"src="img/point-placeholder.png" height="28" width="28">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-8" src="img/point-placeholder.png" height="28" width="28">
 		  				<select id="idea-8-selector" class="idea-selector clear-input" tabindex="9"></select>
 
-			  			<input readonly class="points-input clear-input" id="value-modifier-idea-8" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="points-input clear-input" id="value-cost-idea-8" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-8" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-8" placeholder="Idea Cost" tabindex="-1">
 
 			  			<div id="radio8" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-8-lv1" name="radio-idea-8"><label for="radio-idea-8-lv1">1</label>
@@ -210,11 +206,11 @@
 			  		</div>
 						
 		  			<div class="idea-row">
-		  				<img class="selected-idea-type-icon" id="img-placeholder-9"src="img/point-placeholder.png" height="28" width="28">
+		  				<img class="selected-idea-type-icon" id="img-placeholder-9" src="img/point-placeholder.png" height="28" width="28">
 		  				<select id="idea-9-selector" class="idea-selector clear-input" tabindex="9"></select>
 
-			  			<input readonly class="points-input clear-input" id="value-modifier-idea-9" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="points-input clear-input" id="value-cost-idea-9" placeholder="Idea Cost" tabindex="-1"></input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-9" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-9" placeholder="Idea Cost" tabindex="-1">
 
 			  			<div id="radio9" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-9-lv1" name="radio-idea-9"><label for="radio-idea-9-lv1">1</label>
@@ -229,11 +225,11 @@
 		  			<div class="idea-labels"><h2>Ambition:</h2></div>
 					
 					<div class="idea-row">
-						<img class="selected-idea-type-icon" id="img-placeholder-10"src="img/point-placeholder.png" height="28" width="28">
+						<img class="selected-idea-type-icon" id="img-placeholder-10" src="img/point-placeholder.png" height="28" width="28">
 						<select id="idea-10-selector" class="idea-selector clear-input" tabindex="10"></select>
 
-			  			<input readonly class="points-input clear-input" id="value-modifier-idea-10" placeholder="Idea Modifier" tabindex="-1"></input>
-			  			<input readonly class="points-input clear-input" id="value-cost-idea-10" placeholder="Idea Cost" tabindex="-1"</input>
+			  			<input readonly class="points-input clear-input" id="value-modifier-idea-10" placeholder="Idea Modifier" tabindex="-1">
+			  			<input readonly class="points-input clear-input" id="value-cost-idea-10" placeholder="Idea Cost" tabindex="-1">
 
 			  			<div id="radio10" class="ideaLvlRadioButtons">
 							<input type="radio" id="radio-idea-10-lv1" name="radio-idea-10"><label for="radio-idea-10-lv1">1</label>
@@ -265,17 +261,20 @@
 						<span class="type-percentage-lbl">MIL</span>
 						<span class="point-percentage" id="total-idea-levels-mil">0%</span>
 					</div>
+					<div class="type-percentage-div">
+						<button class="hashRefresher" id="hash-refresher-btn" title="Update the URL to share your idea set!">Update URL</button>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="clearfix"></div>
-		<div class="footer">
+		<footer>
 			<div class="container">
 				<hr>
 				<p>All values used taken from <a href="http://www.eu4wiki.com">EU4 Wiki</a>.</p>
-				<p>All rights reserved to <a href="https://www.paradoxplaza.com/">Paradox Interactive</a> and/or whoever owns each one.</p>
+				<p>All rights reserved to <a href="https://www.paradoxplaza.com/">Paradox Interactive</a> and/or whoever owns them.</p>
 				<p>Site by <a href="https://www.reddit.com/user/ccjmk/">ccjmk</a>, 2016. Hosted on <a href="https://pages.github.com/">GitHub Pages</a></p>
 			</div>
-		</div>
+		</footer>
 	</body>
 </html>
