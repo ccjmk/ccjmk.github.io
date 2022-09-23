@@ -1,0 +1,19 @@
+{
+  "name": "ccjmk",
+  "version": "0.0.1",
+  "description": "Portfolio-like static site for Github Pages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ccjmk/ccjmk.git"
+  },
+  "author": "ccjmk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ccjmk/ccjmk/issues"
+  },
+  "homepage": "https://github.com/ccjmk/ccjmk#readme"
+}
